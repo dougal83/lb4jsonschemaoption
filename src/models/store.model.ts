@@ -1,6 +1,6 @@
-import { Entity, model, property, belongsTo } from '@loopback/repository';
-import { User } from './user.model';
-import { Country } from './country.model';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {User} from './user.model';
+import {Country} from './country.model';
 import {Province} from './province.model';
 
 @model()
@@ -13,7 +13,7 @@ export class Store extends Entity {
   id?: string;
 
   @belongsTo(() => User)
-  createUserId: string;
+  userId: string;
 
   @belongsTo(() => Country)
   countryId: string;
@@ -46,6 +46,9 @@ export class Store extends Entity {
 
 export interface StoreRelations {
   // describe navigational properties here
+  user?: StoreWithRelations;
+  country?: StoreWithRelations;
+  province?: StoreWithRelations;
 }
 
 export type StoreWithRelations = Store & StoreRelations;

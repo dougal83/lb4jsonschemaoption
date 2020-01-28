@@ -17,20 +17,20 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import { Store } from '../models';
-import { StoreRepository } from '../repositories';
+import {Store} from '../models';
+import {StoreRepository} from '../repositories';
 
 export class StoreController {
   constructor(
     @repository(StoreRepository)
     public storeRepository: StoreRepository,
-  ) { }
+  ) {}
 
   @post('/stores', {
     responses: {
       '200': {
         description: 'Store model instance',
-        content: { 'application/json': { schema: getModelSchemaRef(Store) } },
+        content: {'application/json': {schema: getModelSchemaRef(Store)}},
       },
     },
   })
@@ -54,7 +54,7 @@ export class StoreController {
     responses: {
       '200': {
         description: 'Store model count',
-        content: { 'application/json': { schema: CountSchema } },
+        content: {'application/json': {schema: CountSchema}},
       },
     },
   })
@@ -72,23 +72,7 @@ export class StoreController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(Store, { title: 'StoreRes', includeRelations: true }),
-              /**
-               * config as shown up, then on the browser will show like this:
-               [StoreRes{
-                    description:
-                    (Schema options: { title: 'StoreRes', includeRelations: true })
-
-                          id	string
-                          createUserId	string
-                          countryId	string
-                          name*	string
-                          cif*	string
-                          company*	string
-                          createUser	StoreRes{...}  ====> Error on browser
-                          country	StoreRes{...}      ====> Error on browser
-                    }]
-               */
+              items: getModelSchemaRef(Store, {includeRelations: true}),
             },
           },
         },
@@ -96,7 +80,8 @@ export class StoreController {
     },
   })
   async find(
-    @param.query.object('filter', getFilterSchemaFor(Store)) filter?: Filter<Store>,
+    @param.query.object('filter', getFilterSchemaFor(Store))
+    filter?: Filter<Store>,
   ): Promise<Store[]> {
     return this.storeRepository.find(filter);
   }
@@ -105,7 +90,7 @@ export class StoreController {
     responses: {
       '200': {
         description: 'Store PATCH success count',
-        content: { 'application/json': { schema: CountSchema } },
+        content: {'application/json': {schema: CountSchema}},
       },
     },
   })
@@ -113,7 +98,7 @@ export class StoreController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Store, { partial: true }),
+          schema: getModelSchemaRef(Store, {partial: true}),
         },
       },
     })
@@ -129,7 +114,7 @@ export class StoreController {
         description: 'Store model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(Store, { includeRelations: true }),
+            schema: getModelSchemaRef(Store, {includeRelations: true}),
           },
         },
       },
@@ -137,7 +122,8 @@ export class StoreController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.query.object('filter', getFilterSchemaFor(Store)) filter?: Filter<Store>
+    @param.query.object('filter', getFilterSchemaFor(Store))
+    filter?: Filter<Store>,
   ): Promise<Store> {
     return this.storeRepository.findById(id, filter);
   }
@@ -154,7 +140,7 @@ export class StoreController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Store, { partial: true }),
+          schema: getModelSchemaRef(Store, {partial: true}),
         },
       },
     })
